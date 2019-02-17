@@ -10,7 +10,7 @@ docker commit -m 'test' 17add7bb test --提交对容器17add7bb的改动，提�
 docker rmi 17add7bb --删除容器
 docker container rm $(docker container ps -aq) --删除所有容器，没有任何标准
 docker rm -f ef8d3050473f --强制删除容器
-
+docker build -t testImage --build一个容器名字为testImage
 
 Dockerfile Sample
 FROM ubuntu
