@@ -1,0 +1,38 @@
+docker info  -- 显示docker安装信息
+docker ps --显示正在运行的docker进程
+docker images --显示本地所有已经安装的image
+docker run ubuntu echo hello world  --运行ubuntu 镜像并 执行 echo hello world
+docker run -p 8080:80 -d ubuntu --运行ubuntu镜像作为一个后台程序，并将80 端口映射到本地8080 端口
+docker cp index.html 17add7bb://user/share/nginx/html --复制 index.html到一个指定容器的指定路径下（17add7bb 表示容器id）
+docker stop 17add7bb --停止指定容器
+docker stop $(docker ps -a -q) --停止所有运行的容器（这个命令在windows cmd 下直接运行会有“unknown shorthand flag: 'a' in -a” 错误，可以使用gitBash来运行）
+docker commit -m 'test' 17add7bb test --提交对容器17add7bb的改动，提交信息是'test'，这将产生一个新的容器test
+docker rmi 17add7bb --删除容器
+docker container rm $(docker container ps -aq) --删除所有容器，没有任何标准
+docker rm -f ef8d3050473f --强制删除容器
+
+
+Dockerfile Sample
+FROM ubuntu
+MANTAINER XSW
+RUN sed -i 's/cn.archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+RUN apt get update
+RUN apt-get install -y nginx
+COPY index.html /usr/share/nginx/html
+ENTRYPOINT ["/usr/sbin/nginx","-g","daemon off;"]
+EXPOSE 80
+
+Dockerfile 语法
+FROM 基础镜像 
+RUN 在容器中执行命令
+ADD 添加文件，相比COPY可以将远程的文件复制进容器
+COPY 拷贝文件
+CMD 执行命令
+EXPOSE 暴露端口
+WORKDIR 指定路径
+MAINTAINER 维护者
+ENV 设置环境变量
+ENTRYPOINT 容器入口
+USER 指定用户
+VOLUME 指定容器挂载的卷
+
