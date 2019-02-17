@@ -36,3 +36,9 @@ ENTRYPOINT 容器入口
 USER 指定用户
 VOLUME 指定容器挂载的卷
 
+
+docker-compose命令:
+docker-compose build --build
+docker-compose up -d --启动
+docker-compose stop --停止
+docker-compose rm --移除
